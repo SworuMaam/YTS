@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body{
+    font-family: Arimo, Arial, Helvetica, sans-serif;
+}
+
 header {
     background-color: #0f0b0b;
     color: white;
@@ -103,7 +107,7 @@ a:hover {
 }
 
 .popular h4 a {
-    margin-right: 40px; /* Adjust the margin as needed */
+    padding-right: 55px; /* Adjust the margin as needed */
     text-decoration: none; /* Optional: Remove link underline */
     color: #7b7b7e; /* Optional: Set link color */
 }
@@ -119,7 +123,7 @@ a:hover {
 }
 
 .latest h4 a {
-    margin-right: 40px; /* Adjust the margin as needed */
+    padding-right: 55px; /* Adjust the margin as needed */
     text-decoration: none; /* Optional: Remove link underline */
     color: #7b7b7e; /* Optional: Set link color */
 }
@@ -135,7 +139,7 @@ a:hover {
 }
 
 .upcoming h4 a {
-    margin-right: 40px; /* Adjust the margin as needed */
+    padding-right: 55px; /* Adjust the margin as needed */
     text-decoration: none; /* Optional: Remove link underline */
     color: #7b7b7e; /* Optional: Set link color */
 }
