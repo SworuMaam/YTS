@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #0f0b0b;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    height: 70px;
+}
+
+.logo {
+    position: absolute;
+    left: 30px;
+    top: 10px;
+}
+
+.logo img {
+    height: 60px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav .nav-items {
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; 
+}
+
+.search-input {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #8a858536;
+    border-radius: 4px;
+    width: 200px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin-left: 0; /* Reset margin to avoid unexpected spacing */
+}
+
+nav ul li {
+    margin: 0 10px; /* Increased space between items */
+}
+
+nav ul li a {
+    color: grey;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+nav ul li a:hover {
+    color: rgb(255, 255, 255);
+}
+
+main {
+    padding: 50px;
+    text-align: center;
+    background-color: #0f0b0bd8;
+    margin-bottom: 0;
+    color: white;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color:white;
+}
+
+p {
+    margin-bottom: 20px; 
+    line-height: 1.6; 
+    color:white;
+}
+
+a {
+    color: #6264d1; /* Optional: Set link color */
+    text-decoration: underline; /* Optional: Underline links */
+}
+
+a:hover {
+    color: #fff; /* Change color on hover */
+}
+.popular h4 {
+    display: flex;
+    justify-content: space-between; /* Space between left and right */
+    align-items: center; /* Vertically center both elements */
+}
+
+.popular h4 a {
+    margin-right: 40px; /* Adjust the margin as needed */
+    text-decoration: none; /* Optional: Remove link underline */
+    color: #7b7b7e; /* Optional: Set link color */
+}
+
+.popular h4 a:hover {
+    color: #fff; /* Optional: Change link color on hover */
+}
+
+.latest h4 {
+    display: flex;
+    justify-content: space-between; /* Space between left and right */
+    align-items: center; /* Vertically center both elements */
+}
+
+.latest h4 a {
+    margin-right: 40px; /* Adjust the margin as needed */
+    text-decoration: none; /* Optional: Remove link underline */
+    color: #7b7b7e; /* Optional: Set link color */
+}
+
+.latest h4 a:hover {
+    color: #fff; /* Optional: Change link color on hover */
+}
+
+.upcoming h4 {
+    display: flex;
+    justify-content: space-between; /* Space between left and right */
+    align-items: center; /* Vertically center both elements */
+}
+
+.upcoming h4 a {
+    margin-right: 40px; /* Adjust the margin as needed */
+    text-decoration: none; /* Optional: Remove link underline */
+    color: #7b7b7e; /* Optional: Set link color */
+}
+
+.upcoming h4 a:hover {
+    color: #fff; /* Optional: Change link color on hover */
+}
+
+.movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.m1 {
+    width: calc(25% - 10px); /* Set width to 25% minus spacing */
+    text-align: left; /* Center the title under the image */
+    margin-bottom: 20px; /* Space below each movie item */
+}
+
+.m1 img {
+    width: 80%; /* Make the image responsive */
+    height: 300px; /* Maintain aspect ratio */
+    border: 5px solid #fff; /* Optional: rounded corners */
+}
+
+.m1 h3 {
+    font-size: 16px; /* Adjust the font size of the title */
+    color: #eeeded; /* Change the color of the title */
+    margin: 5px 0; /* Adjust margin to avoid overlap */
+}
+
+.release-date {
+    font-size: 14px; /* Font size for the release date */
+    color: #777; /* Grey color for the release date */
+    margin-top: 5px; /* Space above the release date */
+}
+
+footer {
+    background-color: #0f0b0b;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+}
+
+.foot {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+}
+
+.foot1, .foot2 {
+    display: flex; /* Use flexbox for ul */
+    justify-content: center; /* Center items in ul */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    list-style: none; /* Remove default bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 10px 0; /* Space between foot sections */
+}
+
+.foot1 li, .foot2 li {
+    margin: 0 10px; /* Space between list items */
+}
+
+.foot3 {
+    text-align: center; /* Center text for foot3 */
+    margin-top: 10px; /* Space above foot3 */
+}
+
+.foot3 a, .foot1 a, .foot2 a {
+    color: grey; /* Set link color */
+    text-decoration: none; /* Remove underline from links */
+}
