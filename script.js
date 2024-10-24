@@ -51,19 +51,22 @@ function displayMovies(movieArray, containerId) {//movieArray=new array for the 
 }
 
 function searchMovies() {
-    const input = document.querySelector('.search-input');
-    const filter = input.value.toLowerCase();
-    const dropdownResults = document.getElementById('dropdownResults');
+    const input = document.querySelector('.search-input'); // Get the input field
+    const filter = input.value.toLowerCase(); // Get the search query, convert to lowercase
+    const dropdownResults = document.getElementById('dropdownResults'); // Get the dropdown element
     
-    dropdownResults.innerHTML = ''; //clears the previous parts
+    dropdownResults.innerHTML = ''; // Clears the previous results
     
+    // Check if there is any input in the search bar
     if (filter) {
-        const filteredMovies = popularMovies.filter(movie => 
-            movie.title.toLowerCase().includes(filter)
+        // Filter through allMovies array (combination of popular, latest, and upcoming movies)
+        const filteredMovies = allMovies.filter(movie => 
+            movie.title.toLowerCase().includes(filter) // Match the search query with movie titles
         );
 
+        // If there are matching movies, display them in the dropdown
         if (filteredMovies.length > 0) {
-            dropdownResults.style.display = 'block';
+            dropdownResults.style.display = 'block'; // Make dropdown visible
             filteredMovies.forEach(movie => {
                 const listItem = `
                     <li>
@@ -72,15 +75,16 @@ function searchMovies() {
                         <span class="year">${movie.releaseDate}</span>
                     </li>
                 `;
-                dropdownResults.innerHTML += listItem;
+                dropdownResults.innerHTML += listItem; // Append the list item to the dropdown
             });
         } else {
-            dropdownResults.style.display = 'none'; 
+            dropdownResults.style.display = 'none'; // Hide dropdown if no results
         }
     } else {
-        dropdownResults.style.display = 'none'; 
+        dropdownResults.style.display = 'none'; // Hide dropdown if input is empty
     }
 }
+
 
 displayMovies(popularMovies, 'popularMovies');
 displayMovies(latestMovies, 'latestMovies');
