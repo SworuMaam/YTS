@@ -25,13 +25,13 @@ const upcomingMovies = [
 
 ];
 
-const allMovies = [...popularMovies, ...latestMovies, ...upcomingMovies];
+//all arrays combined together
+const allMovies = [...popularMovies, ...latestMovies, ...upcomingMovies]; //...=spread operator
 
-function displayMovies(movieArray, containerId) {
+function displayMovies(movieArray, containerId) {//movieArray=new array for the categories , containerID= ID of html
     const container = document.getElementById(containerId);
-    movieArray.forEach(movie => {
-        const movieItem = `
-            <div class="m1">
+    movieArray.forEach(movie => {const movieItem = ` 
+        <div class="m1">
                 <div class="m2">
                 <a href="#">
                     <img src="${movie.imageSrc}" alt="${movie.title}">
@@ -45,7 +45,7 @@ function displayMovies(movieArray, containerId) {
                 <h3>${movie.title}</h3>
                 <p class="release-date" style="color:grey">${movie.releaseDate}</p>
             </div>
-        `;
+        `; //``= necessary for html codes?
         container.innerHTML += movieItem;
     });
 }
@@ -55,7 +55,7 @@ function searchMovies() {
     const filter = input.value.toLowerCase();
     const dropdownResults = document.getElementById('dropdownResults');
     
-    dropdownResults.innerHTML = '';
+    dropdownResults.innerHTML = ''; //clears the previous parts
     
     if (filter) {
         const filteredMovies = popularMovies.filter(movie => 
