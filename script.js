@@ -51,22 +51,20 @@ function displayMovies(movieArray, containerId) {//movieArray=new array for the 
 }
 
 function searchMovies() {
-    const input = document.querySelector('.search-input'); // Get the input field
-    const filter = input.value.toLowerCase(); // Get the search query, convert to lowercase
-    const dropdownResults = document.getElementById('dropdownResults'); // Get the dropdown element
+    const input = document.querySelector('.search-input'); 
+    const filter = input.value.toLowerCase(); 
+    const dropdownResults = document.getElementById('dropdownResults'); 
     
-    dropdownResults.innerHTML = ''; // Clears the previous results
+    dropdownResults.innerHTML = ''; 
     
-    // Check if there is any input in the search bar
     if (filter) {
-        // Filter through allMovies array (combination of popular, latest, and upcoming movies)
+        // Filtering through "allMovies" array 
         const filteredMovies = allMovies.filter(movie => 
-            movie.title.toLowerCase().includes(filter) // Match the search query with movie titles
+            movie.title.toLowerCase().includes(filter) 
         );
 
-        // If there are matching movies, display them in the dropdown
         if (filteredMovies.length > 0) {
-            dropdownResults.style.display = 'block'; // Make dropdown visible
+            dropdownResults.style.display = 'block'; 
             filteredMovies.forEach(movie => {
                 const listItem = `
                     <li>
@@ -75,13 +73,13 @@ function searchMovies() {
                         <span class="year">${movie.releaseDate}</span>
                     </li>
                 `;
-                dropdownResults.innerHTML += listItem; // Append the list item to the dropdown
+                dropdownResults.innerHTML += listItem; 
             });
         } else {
-            dropdownResults.style.display = 'none'; // Hide dropdown if no results
+            dropdownResults.style.display = 'none';
         }
     } else {
-        dropdownResults.style.display = 'none'; // Hide dropdown if input is empty
+        dropdownResults.style.display = 'none'; 
     }
 }
 
