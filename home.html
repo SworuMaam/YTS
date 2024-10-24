@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YTS</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
     <header class="navbar">
@@ -13,9 +15,11 @@
         </div>
         <nav>
             <div class="nav-items"> 
-                <form class="search-form" action="/search" method="GET">
-                    <input type="text" name="q" placeholder="Quick Search" class="search-input">
+                <form class="search-form" action="/search" method="GET" onsubmit="return false;">
+                    <input type="text" name="q" placeholder="Quick Search" class="search-input" oninput="searchMovies()">
+                    <ul class="dropdown-results" id="dropdownResults"></ul>
                 </form>
+                
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#4k" style="color: #6AC045">4K</a></li>
@@ -23,7 +27,7 @@
                     <li><a href="#browse">Browse Movies</a></li>
                 </ul>
                 <ul class="white">
-                    <li><a href="#login"style="color:white" >Login</a></li>
+                    <li><a href="#login" style="color:white">Login</a></li>
                     <li style="color:white">|</li>
                     <li><a href="#register" style="color:white">Register</a></li>
                 </ul>
@@ -36,130 +40,76 @@
             <h1>Download YTS YIFY movies: HD smallest size</h1>
             <p>Welcome to the official YTS.MX website. Here you can browse and download YIFY movies in excellent<br>
                 720p, 1080p, 2160p 4K and 3D quality, all at the smallest file size. YTS Movies Torrents.<br>
-                <a href="#important">IMPORTANT - YTS.MX is the only new official domain for YIFY Movies</a><br><br>
-        
-                <a href="#updates">YTSMX_UPDATES |  Follow @YTSYIFY for upcoming featured movies!</a></p>   
+                <a href="#important" style="text-decoration: none;">IMPORTANT - YTS.MX is the only new official domain for YIFY Movies</a><br><br>
+                <img src="./media/telegram.svg" width="16" height="16">
+                <a href="#telegram"style="text-decoration: none;">YTSMX_UPDATES </a>|
+                <img src="./media/twitter.svg" width="16" height="16">
+                <a href="#twitter"style="text-decoration: none;">  Follow @YTSYIFY for upcoming featured movies!</a></p>   
         </div>
+
         <div class="popular">
-            <h4>
+            <h4 >
+                <div class="1" style="display: flex; justify-content: space-between;">
+                    <img src="./media/yellow-star-15589.svg" width="16" height="16">
                 Popular Downloads
-                <a href="#featured" >More Featured</a>
+                </div>
+                <div class="2"style="display: flex; justify-content: space-between;">
+                <img src="./media/line.webp" width="16" height="16"><a href="#featured" >More Featured</a>
+                </div>
             </h4>
         </div><br>
-        <div class="movies">
-            <div class="m1">
-                <a href="#mo1"><img src="../Clone-Website/media/kite-runner.jpg" ></a>
-                <h3>The Kite Runner</h3>
-                <p class="release-date">Release Date: 2007</p>
-            </div>
-            <div class="m1">
-                <a href="#mo2"><img src="../Clone-Website/media/zodiac.jfif"></a>
-                <h3>Zodiac</h3>
-                <p class="release-date">Release Date: 2017</p>
-            </div>
-            <div class="m1">
-                <a href="#mo3"><img src="../Clone-Website/media/hannibal.jfif" ></a>
-                <h3>Hannibal</h3>
-                <p class="release-date">Release Date: 2010</p>
-            </div>
-            <div class="m1">
-                <a href="#mo4"><img src="../Clone-Website/media/pale-blue.jpg"></a>
-                <h3>The Pale Blue Eyes</h3>
-                <p class="release-date">Release Date: 2011</p>
-            </div>
-        </div>
+        <div id="popularMovies" class="movies"></div>
 
         <div class="latest">
             <h4>
-                <div >Latest YIFY Movies Torrents</div>
+                <div>Latest YIFY Movies Torrents</div>
                 <a href="#featured" class="latest1">Browse all</a>
             </h4>
         </div><br>
-
-        <div class="movies">
-            <div class="m1">
-                <a href="#mo1"><img src="../Clone-Website/media/fall-guy.jfif" ></a>
-                <h3>Fall Guy</h3>
-                <p class="release-date">Release Date: 2024</p>
-            </div>
-            <div class="m1">
-                <a href="#mo2"><img src="../Clone-Website/media/union.jpg" ></a>
-                <h3>The Union</h3>
-                <p class="release-date">Release Date: 2024</p>
-            </div>
-            <div class="m1">
-                <a href="#mo3"><img src="../Clone-Website/media/jackpot.jfif" ></a>
-                <h3>Jackpot!</h3>
-                <p class="release-date">Release Date: 2024</p>
-            </div>
-            <div class="m1">
-                <a href="#mo4"><img src="../Clone-Website/media/abigail.jpg" ></a>
-                <h3>Abigail</h3>
-                <p class="release-date">Release Date: 2024</p>
-            </div>
-        </div>
+        <div id="latestMovies" class="movies"></div>
 
         <div class="upcoming">
             <h4>
-                <div >Upcoming YIFY Movies</div>
+                <div>Upcoming YIFY Movies</div>
                 <a href="#featured" class="latest1">Request a movie</a>
             </h4>
         </div><br>
-
-        <div class="movies">
-            <div class="m1">
-                <a href="#mo1"><img src="../Clone-Website/media/avatar.jpg" ></a>
-                <h3>Avatar: Fire and Ash</h3>
-                <p class="release-date">Release Date: 2025</p>
-            </div>
-            <div class="m1">
-                <a href="#mo2"><img src="../Clone-Website/media/thunderbolts.jfif" ></a>
-                <h3>Thunderbolts</h3>
-                <p class="release-date">Release Date: 2025</p>
-            </div>
-            <div class="m1">
-                <a href="#mo3"><img src="../Clone-Website/media/f1.webp" ></a>
-                <h3>F1</h3>
-                <p class="release-date">Release Date: 2025</p>
-            </div>
-            <div class="m1">
-                <a href="#mo4"><img src="../Clone-Website/media/tron.jfif" ></a>
-                <h3>Tron: Ares</h3>
-                <p class="release-date">Release Date: 2025</p>
-            </div>
-        </div>
-        
+        <div id="upcomingMovies" class="movies"></div>
     </main>
 
     <footer>
         <div class="foot">
             <div class="foot1">
-                <ul style="display: flex; ;">
+                <ul style="display: flex;">
                     <li><a href="#register" style="color:white">YTS © 2011 - 2024 &-</a></li>
-                    <li><a href="#register" style="color:grey">Blog -   </a></li>
-                    <li><a href="#register" style="color:grey">DCMA   -   </a></li>
-                    <li><a href="#register" style="color:grey">API   -   </a></li>
-                    <li><a href="#register" style="color:grey">RSS   -   </a></li>
-                    <li><a href="#register" style="color:grey">Contact   -   </a></li>
-                    <li><a href="#register" style="color:grey">Browse Movies   -   </a></li>
-                    <li><a href="#register" style="color:grey">Request   -   </a></li>
-                    <li><a href="#register" style="color:grey">Language   -   </a></li>
-                    <li><a href="#register" style="color:grey">Login   -   </a></li>
+                    <li><a href="#register" style="color:grey">Blog - </a></li>
+                    <li><a href="#register" style="color:grey">DCMA - </a></li>
+                    <li><a href="#register" style="color:grey">API - </a></li>
+                    <li><a href="#register" style="color:grey">RSS - </a></li>
+                    <li><a href="#register" style="color:grey">Contact - </a></li>
+                    <li><a href="#register" style="color:grey">Browse Movies - </a></li>
+                    <li><a href="#register" style="color:grey">Request - </a></li>
+                    <li><a href="#register" style="color:grey">Language - </a></li>
+                    <li><a href="#register" style="color:grey">Login - </a></li>
                 </ul>
             </div>
             <div class="foot2">
                 <ul style="display: flex;">
-                    <li><a href="#register" style="color:grey">EZTV -  </a></li>
+                    <li><a href="#register" style="color:grey">EZTV - </a></li>
                     <li><a href="#register" style="color:grey">YIFY Status - </a></li>
                     <li><a href="#register" style="color:grey">YTS Proxies - </a></li>
                     <li><a href="#register" style="color:grey">YTS Proxies (TOR) -</a></li>
+                    <li><a id="follow-button" class="btn" title="Follow @ytsyify on X" 
+                        href="https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fyts.mx%2F&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5Eytsyify&amp;region=follow_link&amp;screen_name=ytsyify">
+                        <i></i><span class="label" id="l">Follow <b>@ytsyify</b></span></a></li>
                 </ul>
             </div>
             <div class="foot3">
-                <p>By using this site you agree to and accept our <a href="#agreement" style="color: grey;">User Agreement</a>, which can be read <a href="#here"style="color: grey;">here</a>.</p>
+                <p>By using this site you agree to and accept our <a href="#agreement" style="color: grey;">User Agreement</a>, which can be read <a href="#here" style="color: grey;">here</a>.</p>
             </div>
         </div>
     </footer>
-    
+
+    <script src="script.js"></script>
 </body>
 </html>
