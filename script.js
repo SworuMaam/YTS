@@ -34,27 +34,26 @@ async function filterMovies() {
                 const movieItem = document.createElement('div');
                 movieItem.classList.add('dropdown-item');
                 movieItem.innerHTML = `
-                   <div  onclick="window.location.href='../view/movie-details.html?id=${movie.id}'">
                     <img src="${movie.medium_cover_image}" alt="${movie.title}">
                     <span>${movie.title}</span>
-                    </div>
                 `;
-                
-                // Update the click event to redirect to the movie details page
+
+                // Use addEventListener to handle redirection
                 movieItem.addEventListener('click', () => {
-                    window.location.href = `/movie-details.html?id=${movie.id}`; // Redirect to movie details page
+                    window.location.href = `movie-details.html?movieId=${movie.id}`; // Redirect to movie details page
                 });
 
                 dropdown.appendChild(movieItem);
             });
         } else {
             dropdown.style.display = 'none';
-            // alert('No movies found for your search.');
+            // Optionally display a message for no results
         }
     } else {
         dropdown.style.display = 'none';
     }
 }
+
 
 // Initialize the movie fetching and search functionality
 fetchMovies();
