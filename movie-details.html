@@ -3,28 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YTS</title>
+    <title>Movie Details</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="movie-details.css"> <!-- Optional additional styles -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="module" src="../script.js"></script>
-
-
 </head>
 <body>
+    <!-- Header -->
     <header class="navbar">
         <div class="logo">
-            <a href="#logo"><img src="../media/logoo.png" alt="Logo"></a>
+            <a href="home.html"><img src="../media/logoo.png" alt="Logo"></a>
         </div>
         <nav>
             <div class="nav-items"> 
-                <div class="search-bar">
-
-                <input type="text" class="search-input"id="searchInput" placeholder="Quick Search" aria-label="Search movies">
-                <div id="dropdown" ></div></div>
+                <input type="text" class="search-input" placeholder="Search for a movie..." oninput="searchMovies()">
+                <ul id="dropdownResults" class="dropdown-results" style="display: none;"></ul>
                 
                 <ul>
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="home.html">Home</a></li>
                     <li><a href="#4k" style="color: #6AC045">4K</a></li>
                     <li><a href="#Trending">Trending</a></li>
                     <li><a href="#browse">Browse Movies</a></li>
@@ -38,50 +35,22 @@
         </nav>
     </header>
 
+    <!-- Main Content -->
     <main>
-        <div class="main-text">
-            <h1>Download YTS YIFY movies: HD smallest size</h1>
-            <p>Welcome to the official YTS.MX website. Here you can browse and download YIFY movies in excellent<br>
-                720p, 1080p, 2160p 4K and 3D quality, all at the smallest file size. YTS Movies Torrents.<br>
-                <a href="#important" style="text-decoration: none;">IMPORTANT - YTS.MX is the only new official domain for YIFY Movies</a><br><br>
-                <img src="./media/telegram.svg" width="16" height="16">
-                <a href="#telegram"style="text-decoration: none;">YTSMX_UPDATES </a>|
-                <img src="./media/twitter.svg" width="16" height="16">
-                <a href="#twitter"style="text-decoration: none;">  Follow @YTSYIFY for upcoming featured movies!</a></p>   
+        <div id="movieDetailContainer" class="movie-detail-container">
+            <h1 id="movieTitle">Movie Title</h1>
+            <img id="movieImage" alt="Movie Poster" />
+            <p id="movieSynopsis" class="movie-synopsis">This is a sample synopsis for the movie.</p>
+            <p><strong>Rating:</strong> <span id="movieRating"></span></p>
+            <p><strong>Genres:</strong> <span id="movieGenres"></span></p>
+            <a href="/home.html"class="back-btn">Back to Movies</a>
+
         </div>
-
-        <div class="popular">
-            <h4 >
-                <div class="1" style="display: flex; justify-content: space-between;">
-                    <img src="./media/yellow-star-15589.svg" width="16" height="16">
-                Popular Downloads
-                </div>
-                <div class="2"style="display: flex; justify-content: space-between;">
-                <img src="./media/line.webp" width="16" height="16"><a href="#featured" >More Featured</a>
-                </div>
-            </h4>
-        </div><br>
-        <div id="popularMovies" class="movies"></div>
-
-        <div class="latest">
-            <h4>
-                <div>Latest YIFY Movies Torrents</div>
-                <a href="#featured" class="latest1">Browse all</a>
-            </h4>
-        </div><br>
-        <div id="latestMovies" class="movies"></div>
-
-        <div class="upcoming">
-            <h4>
-                <div>Upcoming YIFY Movies</div>
-                <a href="#featured" class="latest1">Request a movie</a>
-            </h4>
-        </div><br>
-        <div id="upcomingMovies" class="movies"></div>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <div class="foot" >
+        <div class="foot">
             <div class="foot1">
                 <ul style="display: flex;">
                     <li><a href="#register" style="color:white">YTS © 2011 - 2024 &-</a></li>
@@ -112,5 +81,7 @@
             </div>
         </div>
     </footer>
+
+    <script src="movie-detail.js" type="module"></script>
 </body>
 </html>

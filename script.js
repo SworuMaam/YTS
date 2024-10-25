@@ -1,89 +1,137 @@
-const popularMovies = [
-    { title: "The Kite Runner", releaseDate: "2007", imageSrc: "../Clone-Website/media/kite-runner.jpg", rating: "8.2", genre: "Drama" },
-    { title: "Zodiac", releaseDate: "2017", imageSrc: "../Clone-Website/media/zodiac.jfif", rating: "7.7", genre: "Thriller" },
-    { title: "Hannibal", releaseDate: "2010", imageSrc: "../Clone-Website/media/hannibal.jfif", rating: "8.6", genre: "Thriller" },
-    { title: "The Pale Blue Eyes", releaseDate: "2011", imageSrc: "../Clone-Website/media/pale-blue.jpg", rating: "6.8", genre: "Mystery" },
-    { title: "Psycho", releaseDate: "1960", imageSrc: "../Clone-Website/media/psycho.jpg", rating: "9", genre: "Mystery, Thrille" }
+const BASE_URL = 'https://yts.mx/api/v2/';
 
-];
+// Function to fetch movies from the API
+async function fetchMovies(url) {
+    try {
+        const response = await axios.get(url);
+        return response.data.data.movies; // Return the movies array
+    } catch (error) {
+        console.error('Error fetching movies:', error);
+        return [];
+    }
+}
+async function searchMovies(query) {
+    try {
+        const response = await axios.get(`${BASE_URL}list_movies.json?query_term=${query}`);
+        return response.data.data.movies; // Return the movie array
+    } catch (error) {
+        console.error("Error searching movies:", error);
+        return []; // Return an empty array in case of an error
+    }
+}
 
-const latestMovies = [
-    { title: "Fall Guy", releaseDate: "2024", imageSrc: "../Clone-Website/media/fall-guy.jfif", rating: "7.5", genre: "Action" },
-    { title: "The Union", releaseDate: "2024", imageSrc: "../Clone-Website/media/union.jpg", rating: "6", genre: "Drama" },
-    { title: "Jackpot!", releaseDate: "2024", imageSrc: "../Clone-Website/media/jackpot.jfif", rating: "5.2", genre: "Comedy" },
-    { title: "Abigail", releaseDate: "2024", imageSrc: "../Clone-Website/media/abigail.jpg", rating: "6.2", genre: "Fantasy" },
-    { title: "Madame Web", releaseDate: "2023", imageSrc: "../Clone-Website/media/madame.jfif", rating: "4.2", genre: "Science Fiction" }
+async function filterMovies() {
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const dropdown = document.getElementById('dropdown');
+    dropdown.innerHTML = '';
 
-];
+    if (searchInput) {
+        const filteredMovies = await searchMovies(searchInput);
 
-const upcomingMovies = [
-    { title: "Avatar: Fire and Ash", releaseDate: "2025", imageSrc: "../Clone-Website/media/avatar.jpg", rating: "N/A", genre: "Sci-Fi" },
-    { title: "Thunderbolts", releaseDate: "2025", imageSrc: "../Clone-Website/media/thunderbolts.jfif", rating: "N/A", genre: "Action" },
-    { title: "F1", releaseDate: "2025", imageSrc: "../Clone-Website/media/f1.webp", rating: "N/A", genre: "Action" },
-    { title: "Tron: Ares", releaseDate: "2025", imageSrc: "../Clone-Website/media/tron.jfif", rating: "N/A", genre: "Sci-Fi" },
-    { title: "Shrek 5", releaseDate: "2026", imageSrc: "../Clone-Website/media/shrek.png", rating: "N/A", genre: "Animation" }
+        if (filteredMovies && filteredMovies.length > 0) {
+            dropdown.style.display = 'block';
+            filteredMovies.forEach(movie => {
+                const movieItem = document.createElement('div');
+                movieItem.classList.add('dropdown-item');
+                movieItem.innerHTML = `
+                   <div  onclick="window.location.href='../view/movie-details.html?id=${movie.id}'">
+                    <img src="${movie.medium_cover_image}" alt="${movie.title}">
+                    <span>${movie.title}</span>
+                    </div>
+                `;
+                
+                // Update the click event to redirect to the movie details page
+                movieItem.addEventListener('click', () => {
+                    window.location.href = `/movie-details.html?id=${movie.id}`; // Redirect to movie details page
+                });
 
-];
+                dropdown.appendChild(movieItem);
+            });
+        } else {
+            dropdown.style.display = 'none';
+            // alert('No movies found for your search.');
+        }
+    } else {
+        dropdown.style.display = 'none';
+    }
+}
 
-//all arrays combined together
-const allMovies = [...popularMovies, ...latestMovies, ...upcomingMovies]; //...=spread operator
+// Initialize the movie fetching and search functionality
+fetchMovies();
+document.getElementById('searchInput').addEventListener('input', filterMovies);
 
-function displayMovies(movieArray, containerId) {//movieArray=new array for the categories , containerID= ID of html
+
+
+// Function to display movies
+function displayMovies(movieArray, containerId) {
     const container = document.getElementById(containerId);
-    movieArray.forEach(movie => {const movieItem = ` 
+    container.innerHTML = ''; // Clear container before adding new items
+
+    if (!movieArray || movieArray.length === 0) {
+        container.innerHTML = '<li>No results found</li>'; // Show no results message
+        return;
+    }
+
+    // Limit to the first 8 movies
+    const limitedMovies = movieArray.slice(0, 8);
+
+    limitedMovies.forEach(movie => {
+        const movieItem = `
         <div class="m1">
-                <div class="m2">
-                <a href="#">
-                    <img src="${movie.imageSrc}" alt="${movie.title}">
+            <div class="m2">
+                <a href="movie-details.html?movieId=${movie.id}">
+                    <img src="${movie.medium_cover_image}" alt="${movie.title}">
                     <div class="movie-details">
                         <p>Rating: ${movie.rating}</p>
-                        <p>Genre: ${movie.genre}</p>
-                        <a href="#button"><button class="button">View Details</button></a>
+                        <p>Genre: ${movie.genres.join(', ')}</p>
+                        <button class="button" onclick="loadMovieDetails(${movie.id})">View Details</button>
                     </div>
                 </a>
-                </div>
-                <h3>${movie.title}</h3>
-                <p class="release-date" style="color:grey">${movie.releaseDate}</p>
             </div>
-        `; //``= necessary for html codes?
+            <h3>${movie.title}</h3>
+            <p class="release-date" style="color:grey">${movie.year}</p>
+        </div>
+        `;
         container.innerHTML += movieItem;
     });
 }
 
-function searchMovies() {
-    const input = document.querySelector('.search-input'); 
-    const filter = input.value.toLowerCase(); 
-    const dropdownResults = document.getElementById('dropdownResults'); 
-    
-    dropdownResults.innerHTML = ''; 
-    
-    if (filter) {
-        // Filtering through "allMovies" array 
-        const filteredMovies = allMovies.filter(movie => 
-            movie.title.toLowerCase().includes(filter) 
-        );
 
-        if (filteredMovies.length > 0) {
-            dropdownResults.style.display = 'block'; 
-            filteredMovies.forEach(movie => {
-                const listItem = `
-                    <li>
-                        <img src="${movie.imageSrc}" alt="${movie.title}" style="width: 30px; height: auto; margin-right: 8px; vertical-align: middle;">
-                        ${movie.title}<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                        <span class="year">${movie.releaseDate}</span>
-                    </li>
-                `;
-                dropdownResults.innerHTML += listItem; 
-            });
-        } else {
-            dropdownResults.style.display = 'none';
-        }
+// Function to load movie details with error handling
+function loadMovieDetails(movieId) {
+    if (movieId) {
+        window.location.href = `movie-details.html?movieId=${movieId}`;
     } else {
-        dropdownResults.style.display = 'none'; 
+        console.error("Invalid movie ID");
     }
 }
 
+// Display popular movies on page load
+async function displayPopularMovies() {
+    const popularMovies = await fetchMovies(`${BASE_URL}list_movies.json?sort_by=downloads&order_by=desc`);
+    displayMovies(popularMovies, 'popularMovies');
+}
 
-displayMovies(popularMovies, 'popularMovies');
-displayMovies(latestMovies, 'latestMovies');
-displayMovies(upcomingMovies, 'upcomingMovies');
+// Display latest movies on page load
+async function displayLatestMovies() {
+    const latestMovies = await fetchMovies(`${BASE_URL}list_movies.json?sort_by=year&order_by=desc`);
+    displayMovies(latestMovies, 'latestMovies');
+}
+
+// Display upcoming movies on page load
+async function displayUpcomingMovies() {
+    const upcomingMovies = await fetchMovies(`${BASE_URL}list_movies.json?sort_by=year&order_by=asc`);
+    displayMovies(upcomingMovies, 'upcomingMovies');
+}
+
+// Initial display of movies
+async function initializeMovieDisplays() {
+    await Promise.all([
+        displayPopularMovies(),
+        displayLatestMovies(),
+        displayUpcomingMovies()
+    ]);
+}
+
+// Run on page load
+window.onload = initializeMovieDisplays;
