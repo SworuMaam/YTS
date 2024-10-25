@@ -101,6 +101,11 @@ nav .nav-items {
 }
 
 
+#movieDetailContainer a{
+    text-decoration: none;
+    color: white;
+    background-color: #0f0b0b;
+}
 nav ul {
     display: flex;
     list-style: none;
