@@ -38,7 +38,6 @@ async function filterMovies() {
                     <span>${movie.title}</span>
                 `;
 
-                // Use addEventListener to handle redirection
                 movieItem.addEventListener('click', () => {
                     window.location.href = `movie-details.html?movieId=${movie.id}`; // Redirect to movie details page
                 });
@@ -47,7 +46,6 @@ async function filterMovies() {
             });
         } else {
             dropdown.style.display = 'none';
-            // Optionally display a message for no results
         }
     } else {
         dropdown.style.display = 'none';
@@ -64,10 +62,10 @@ document.getElementById('searchInput').addEventListener('input', filterMovies);
 // Function to display movies
 function displayMovies(movieArray, containerId) {
     const container = document.getElementById(containerId);
-    container.innerHTML = ''; // Clear container before adding new items
+    container.innerHTML = ''; 
 
     if (!movieArray || movieArray.length === 0) {
-        container.innerHTML = '<li>No results found</li>'; // Show no results message
+        container.innerHTML = '<li>No results found</li>'; 
         return;
     }
 

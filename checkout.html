@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <a href="home.html"><img src="../media/logoo.png" alt="Logo"></a>
+        </div>
+        <nav>
+            <div class="nav-items"> 
+                <input type="text" class="search-input" placeholder="Search for a movie..." oninput="searchMovies()">
+                <ul id="dropdownResults" class="dropdown-results" style="display: none;"></ul>
+                
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#4k" style="color: #6AC045">4K</a></li>
+                    <li><a href="#Trending">Trending</a></li>
+                    <li><a href="#browse">Browse Movies</a></li>
+                </ul>
+                <ul class="white">
+                    <li><a href="#login" style="color:white">Login</a></li>
+                    <li style="color:white">|</li>
+                    <li><a href="#register" style="color:white">Register</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="checkout">
+            <h2>Your Cart</h2><br>
+            <div class="cart-content">
+                <div class="cart-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Movie</th>
+                                <th>Movie Name</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartItems"></tbody>
+                    </table>
+                    <div id="emptyCartMessage" style="display: none; color: white; text-align: center;">
+                        <br><br>Your cart is empty.
+                    </div>
+                </div>
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Sub Total:</td>
+                                <td>Rs <span id="subTotal">0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>Delivery Fee:</td>
+                                <td>Rs <span id="deliveryFee">20.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>Service Charge:</td>
+                                <td>Rs <span id="serviceCharge">10.00</span></td>
+                            </tr>
+                            <tr>
+                                <td>Discount:</td>
+                                <td>Rs <span id="discount">0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grand Total:</strong></td>
+                                <td><strong>Rs <span id="grandTotal">0.00</span></strong></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><button class="proceed" onclick="proceedToCheckout()">Proceed to Checkout</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="foot">
+            <div class="foot1">
+                <ul style="display: flex;">
+                    <li><a href="#register" style="color:white">YTS © 2011 - 2024 &-</a></li>
+                    <li><a href="#register" style="color:grey">Blog - </a></li>
+                    <li><a href="#register" style="color:grey">DCMA - </a></li>
+                    <li><a href="#register" style="color:grey">API - </a></li>
+                    <li><a href="#register" style="color:grey">RSS - </a></li>
+                    <li><a href="#register" style="color:grey">Contact - </a></li>
+                    <li><a href="#register" style="color:grey">Browse Movies - </a></li>
+                    <li><a href="#register" style="color:grey">Request - </a></li>
+                    <li><a href="#register" style="color:grey">Language - </a></li>
+                    <li><a href="#register" style="color:grey">Login - </a></li>
+                </ul>
+            </div>
+            <div class="foot2">
+                <ul style="display: flex;">
+                    <li><a href="#register" style="color:grey">EZTV - </a></li>
+                    <li><a href="#register" style="color:grey">YIFY Status - </a></li>
+                    <li><a href="#register" style="color:grey">YTS Proxies - </a></li>
+                    <li><a href="#register" style="color:grey">YTS Proxies (TOR) -</a></li>
+                    <li><a id="follow-button" class="btn" title="Follow @ytsyify on X" 
+                        href="https://twitter.com/intent/follow?original_referer=https%3A%2F%2Fyts.mx%2F&amp;ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5Eytsyify&amp;region=follow_link&amp;screen_name=ytsyify">
+                        <i></i><span class="label" id="l">Follow <b>@ytsyify</b></span></a></li>
+                </ul>
+            </div>
+            <div class="foot3">
+                <p>By using this site you agree to and accept our <a href="#agreement" style="color: grey;">User Agreement</a>, which can be read <a href="#here" style="color: grey;">here</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cartItems');
+            let subTotal = 0;
+
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block'; 
+                return; 
+            } else {
+                emptyCartMessage.style.display = 'none'; 
+            }
+            cart.forEach((item, index) => {
+                const row = document.createElement('tr');
+                const totalPrice = item.price ;
+                row.innerHTML = `
+                    <td><img src="${item.poster}" alt="${item.title}" width="50"></td>
+                    <td>${item.title}</td>
+                    <td>Rs ${item.price}</td>
+                    <td><button class="remove" onclick="removeItem(${index})">Remove</button></td>
+                `;
+                cartItemsContainer.appendChild(row);
+                subTotal += parseFloat(totalPrice);
+            });
+
+            document.getElementById("subTotal").textContent = subTotal.toFixed(2);
+            const deliveryFee = 20.00;
+            const serviceCharge = 10.00;
+            const discount = subTotal > 20 ? 3.00 : 0.00;
+            const grandTotal = subTotal + deliveryFee + serviceCharge - discount;
+
+            document.getElementById("deliveryFee").textContent = deliveryFee.toFixed(2);
+            document.getElementById("serviceCharge").textContent = serviceCharge.toFixed(2);
+            document.getElementById("discount").textContent = discount.toFixed(2);
+            document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
+        }
+        
+        function removeItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function proceedToCheckout() {
+            alert("Proceeding to checkout...");
+        }
+
+        document.addEventListener("DOMContentLoaded", loadCart);
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #706e6e;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav .nav-items {
+            margin-left: auto; 
+            display: flex;
+            align-items: center;
+        }
+        .navbar .logo img {
+            width: 100px;
+            height: auto;
+            
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin-left: 0; 
+        }
+
+        nav ul li {
+            margin: 0 10px; 
+        }
+
+
+
+        nav ul li a:hover {
+            color: rgb(255, 255, 255);
+        }
+
+
+        .search-input {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #555;
+            color: #333;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .cart-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .cart-list, .cart-summary {
+            background-color: #292929;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            color: #ddd;
+        }
+
+        table thead {
+            background-color: #444;
+        }
+
+        table tbody tr:hover {
+            background-color: #383838;
+        }
+
+        #cartItems img {
+            width: 50px;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .cart-summary h3 {
+            font-size: 20px;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+        }
+
+        .cart-summary table {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .cart-summary td {
+            padding: 10px;
+            color: #b0b0b0;
+            font-size: 16px;
+        }
+
+        .cart-summary td:last-child {
+            text-align: right;
+            color: #e0e0e0;
+            font-weight: bold;
+        }
+
+        .remove {
+            background-color: #e63946;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .remove:hover {
+            background-color: #c5303e;
+        }
+
+        .proceed {
+            background-color: #2ecc71;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .proceed:hover {
+            background-color: #27ae60;
+        }
+
+        footer {
+            background-color: #070606;
+            color: #bbb;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer ul {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            list-style: none;
+        }
+
+        footer ul li {
+            margin: 0 10px;
+        }
+
+        footer ul li a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            color: #6AC045;
+        }
+
+        .foot3 p {
+            font-size: 14px;
+            color: #999;
+            margin-top: 15px;
+        }
+
+        .foot3 a {
+            color: #6AC045;
+            text-decoration: none;
+        }
+
+        .foot3 a:hover {
+            color: #8cc64b;
+        }
+
+    </style>
+</body>
+</html>

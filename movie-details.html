@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Details</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="movie-details.css"> <!-- Optional additional styles -->
+    <link rel="stylesheet" href="movie-details.css"> 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <!-- Header -->
     <header class="navbar">
         <div class="logo">
             <a href="home.html"><img src="../media/logoo.png" alt="Logo"></a>
@@ -35,20 +34,24 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <div id="movieDetailContainer" class="movie-detail-container">
-            <h1 id="movieTitle">Movie Title</h1>
+<main>
+    <div id="movieDetailContainer" class="movie-detail-container">
+        <div class="detail1">
             <img id="movieImage" alt="Movie Poster" />
+            
+        </div>
+        <div class="detail2">
+            <h1 id="movieTitle">Movie Title</h1>
             <p id="movieSynopsis" class="movie-synopsis">This is a sample synopsis for the movie.</p>
             <p><strong>Rating:</strong> <span id="movieRating"></span></p>
             <p><strong>Genres:</strong> <span id="movieGenres"></span></p>
-            <a href="/home.html"class="back-btn">Back to Movies</a>
-
+            <p><strong>Price:</strong> Rs <span id="moviePrice"></span></p> 
+            
+            <button id="addToCartButton" class="button">Add to Cart</button>
         </div>
-    </main>
+    </div>
+</main>
 
-    <!-- Footer -->
     <footer>
         <div class="foot">
             <div class="foot1">
