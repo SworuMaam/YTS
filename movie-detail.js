@@ -15,22 +15,32 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("movieRating").textContent = movie.rating;
             document.getElementById("movieGenres").textContent = movie.genres.join(", ");
 
-            const price = (Math.random() * 300 + 55).toFixed(2); //since api didnt have price , it will be randomized
+            const price = (Math.random() * 300 + 55).toFixed(2); // Randomized price since API lacks this field
             document.getElementById("moviePrice").textContent = price;
 
             document.getElementById("addToCartButton").addEventListener("click", () => {
-                const totalPrice = price;
-
+                // Retrieve the cart from localStorage, or initialize as an empty array
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                cart.push({ 
-                    id: movie.id, 
-                    title: movie.title, 
-                    price: price, 
-                    poster: movie.medium_cover_image 
-                });
 
-                localStorage.setItem('cart', JSON.stringify(cart));
-                window.location.href = `checkout.html`;
+                // Check if the movie is already in the cart
+                const isInCart = cart.some(item => item.id === movie.id);
+                
+                if (isInCart) {
+                    // Alert the user if the movie is already in the cart
+                    alert("This movie is already in your cart.");
+                } else {
+                    // Add the movie to the cart
+                    cart.push({ 
+                        id: movie.id, 
+                        title: movie.title, 
+                        price: price, 
+                        poster: movie.medium_cover_image 
+                    });
+
+                    // Save the updated cart back to localStorage
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    window.location.href = `checkout.html`;
+                }
             });
 
         } catch (error) {
